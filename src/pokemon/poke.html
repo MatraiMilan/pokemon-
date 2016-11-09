@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PokemonList</title>
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <div id="listDiv">
+        <table id="pokeTable">
+
+        </table>
+    </div>
+
+<script>
+//
+
+function getPokeData( id ) {
+    var pokeUrl = "http://pokeapi.co/api/v2/pokemon/?limit=20";
+
+    $.ajax({
+        type: "GET",
+        url: pokeUrl,
+        dataType: "json",
+        async: true,
+        success: function(data) {
+
+            for (pokeId in data.results){
+
+                console.log(data.results[pokeId].name);
+                document.getElementById(id).innerHTML = data.results[pokeId].name;
+            }
+
+        }
+    });
+}
+
+getPokeData("1", listDiv );
+
+
+
+</script>
+</body>
+</html>
