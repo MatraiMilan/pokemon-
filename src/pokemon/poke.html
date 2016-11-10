@@ -79,8 +79,10 @@
             if (data.pokemon.length < 20) {limit = data.pokemon.length;}
              for (var i = 0; i < limit; i++){
 
-                 var pokeId = regxPattern.match(data.pokemon[i].url);
+                 var pokeId = regxPattern.match(data.pokemon[i].pokemon.url);
                  if (pokeId != null){
+
+                     console.log(pokeID);
                      pokeId = pokeId[0].split("/")[1];
 
                      var appendTag = "<tr>" +
@@ -88,7 +90,7 @@
                              (pokeId) +
                              "</td>" +
                              "<td id='pokeName'>" +
-                             data.pokemon[i].name +
+                             data.pokemon[i].pokemon.name +
                              "</td>" +
                              "<td>" +
                              "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
