@@ -7,13 +7,29 @@
     <style>
         #pokeName{
             text-transform: capitalize;
+
+        }
+        table, td, tr {
+            border: 1px solid black;
+        }
+
+        #listDiv{
+            width: 50%;
+            margin:0 auto;
         }
     </style>
 </head>
 <body>
     <div id="listDiv">
         <table id="pokeTable">
+            <thead>
+                <td>Number</td>
+                <td>Name</td>
+                <td>Picture</td>
+            </thead>
+            <tbody>
 
+            </tbody>
         </table>
     </div>
 
@@ -23,15 +39,19 @@
         $.get("http://pokeapi.co/api/v2/pokemon/?limit=20", function (data, status) {
             for (pokeId in data.results){
 
-                console.log(pokeId);
                 var appendTag = "<tr>" +
-                        "<td id='pokeName'>" + data.results[pokeId].name +
+                        "<td>" +
+                        (++pokeId) +
+                        "</td>" +
+                        "<td id='pokeName'>" +
+                            data.results[--pokeId].name +
                         "</td>" +
                         "<td>" +
-                                "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
-                        + ++pokeId + "\.png' >"
-                        "</td></tr>>";
-                $("#pokeTable").append(appendTag);
+                                "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                        (++pokeId) + "\.png' >"
+                        "</td>" +
+                        "</tr>>";
+                $("#pokeTable tbody").append(appendTag);
 
             }
         })
