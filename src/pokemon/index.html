@@ -70,7 +70,7 @@
 
     function listPokemonByType(selectedType, limit){
         console.log(selectedType);
-        $.get("http://pokeapi.co/api/v2/type/" + selectedType, function (data, status) {
+        $.get("//pokeapi.co/api/v2/type/" + selectedType, function (data, status) {
             var regxPattern = /\/\d+\//;
             if (data.pokemon.length < 20) {limit = data.pokemon.length;}
             for (var i = 0; i < limit; i++){
@@ -91,7 +91,7 @@
                             data.pokemon[i].pokemon.name +
                             "</td>" +
                             "<td>" +
-                            "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                            "<img src='//raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
                             (pokeId) + "\.png' >"
                     "</td>" +
                     "</tr>>";
@@ -103,7 +103,7 @@
     }
 
     function listPokemonByDefault(limit) {
-        $.get("http://pokeapi.co/api/v2/pokemon/?limit=" + limit, function (data, status) {
+        $.get("//pokeapi.co/api/v2/pokemon/?limit=" + limit, function (data, status) {
 
             for (pokeId in data.results){
 
@@ -115,7 +115,7 @@
                         data.results[--pokeId].name +
                         "</td>" +
                         "<td>" +
-                        "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                        "<img src='//raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
                         (++pokeId) + "\.png' >"
                 "</td>" +
                 "</tr>>";
