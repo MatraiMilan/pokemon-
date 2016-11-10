@@ -43,12 +43,12 @@
             <option value="17">Dark</option>
             <option value="18">Fairy</option>
         </select>
-        Max listed Pokémons: <input id="pokeNum" type="number" min="1" max="720" value="20" onchange="setMax">
+        Max listed Pokémons: <input id="pokeNum" type="number" min="1" max="720" value="20">
         <input type="button" value="List" onclick="queryByPokeType()">
     </div>
 
     <div id="listDiv">
-        <table id="pokeTable">
+        <table id="pokeTable" width="100%">
             <thead>
                 <td>Number</td>
                 <td>Name</td>
@@ -135,7 +135,6 @@
         if(selectedType != 0) listPokemonByType(selectedType, numberOfPokemons);
 
         else listPokemonByDefault(numberOfPokemons);
-
 
     }
 
