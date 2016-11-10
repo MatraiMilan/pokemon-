@@ -11,6 +11,7 @@
         }
         table, td, tr {
             border: 1px solid black;
+            text-align: center;
         }
 
         #listDiv{
@@ -20,6 +21,15 @@
     </style>
 </head>
 <body>
+    <div>
+        <select id="typeSelect" onchange="queryByPokeType()">
+            <option value="0">all pokemon type</option>
+            <option value="10">fire</option>
+            <option value="11">water</option>
+            <option value="12">grass</option>
+        </select>
+    </div>
+
     <div id="listDiv">
         <table id="pokeTable">
             <thead>
@@ -27,7 +37,7 @@
                 <td>Name</td>
                 <td>Picture</td>
             </thead>
-            <tbody>
+            <tbody id="tableBody">
 
             </tbody>
         </table>
@@ -37,6 +47,7 @@
 
     $(document).ready(function () {
         $.get("http://pokeapi.co/api/v2/pokemon/?limit=20", function (data, status) {
+
             for (pokeId in data.results){
 
                 var appendTag = "<tr>" +
@@ -56,6 +67,43 @@
             }
         })
     })
+
+
+    function queryByPokeType() {
+        var  selectedType = document.getElementById("typeSelect").value;
+        $("#tableBody").empty();
+
+        $.get("http://pokeapi.co/api/v2/type/" + selectedType, function (data, status) {
+            var regxPattern = "/\/\d+\//"; //    /\/[0-9*]\//
+            var limit = 20;
+            if (data.pokemon.length < 20) {limit = data.pokemon.length;}
+             for (var i = 0; i < limit; i++){
+
+                 var pokeId = regxPattern.match(data.pokemon[i].url);
+                 if (pokeId != null){
+                     pokeId = pokeId[0].split("/")[1];
+
+                     var appendTag = "<tr>" +
+                             "<td>" +
+                             (pokeId) +
+                             "</td>" +
+                             "<td id='pokeName'>" +
+                             data.pokemon[i].name +
+                             "</td>" +
+                             "<td>" +
+                             "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
+                             (pokeId) + "\.png' >"
+                     "</td>" +
+                     "</tr>>";
+
+                     $("#pokeTable tbody").append(appendTag);
+                 }
+
+
+
+             }
+        })
+    }
 
 
 
