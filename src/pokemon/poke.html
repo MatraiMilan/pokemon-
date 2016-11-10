@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>PokemonList</title>
     <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <style>
+        #pokeName{
+            text-transform: capitalize;
+        }
+    </style>
 </head>
 <body>
     <div id="listDiv">
@@ -13,29 +18,24 @@
     </div>
 
 <script>
-//
 
-function getPokeData( id ) {
-    var pokeUrl = "http://pokeapi.co/api/v2/pokemon/?limit=20";
-
-    $.ajax({
-        type: "GET",
-        url: pokeUrl,
-        dataType: "json",
-        async: true,
-        success: function(data) {
-
+    $(document).ready(function () {
+        $.get("http://pokeapi.co/api/v2/pokemon/?limit=20", function (data, status) {
             for (pokeId in data.results){
 
-                console.log(data.results[pokeId].name);
-                document.getElementById(id).innerHTML = data.results[pokeId].name;
+                console.log(pokeId);
+                var appendTag = "<tr>" +
+                        "<td id='pokeName'>" + data.results[pokeId].name +
+                        "</td>" +
+                        "<td>" +
+                                "<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
+                        + ++pokeId + "\.png' >"
+                        "</td></tr>>";
+                $("#pokeTable").append(appendTag);
+
             }
-
-        }
-    });
-}
-
-getPokeData("1", listDiv );
+        })
+    })
 
 
 
