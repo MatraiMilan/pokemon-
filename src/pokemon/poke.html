@@ -23,11 +23,28 @@
 <body>
     <div>
         <select id="typeSelect" onchange="queryByPokeType()">
-            <option value="0">all pokemon type</option>
-            <option value="10">fire</option>
-            <option value="11">water</option>
-            <option value="12">grass</option>
+            <option value="0">All pokemon type</option>
+            <option value="1">Normal</option>
+            <option value="2">Fighting</option>
+            <option value="3">Flying</option>
+            <option value="4">Poison</option>
+            <option value="5">Ground</option>
+            <option value="6">Rock</option>
+            <option value="7">Bug</option>
+            <option value="8">Ghost</option>
+            <option value="9">Steel</option>
+            <option value="10">Fire</option>
+            <option value="11">Water</option>
+            <option value="12">Grass</option>
+            <option value="13">Electric</option>
+            <option value="14">Psychic</option>
+            <option value="15">Ice</option>
+            <option value="16">Dragon</option>
+            <option value="17">Dark</option>
+            <option value="18">Fairy</option>
         </select>
+        Max listed Pokémons: <input id="pokeNum" type="number" min="1" max="720" value="20" onchange="setMax">
+        <input type="button" value="List" onclick="queryByPokeType()">
     </div>
 
     <div id="listDiv">
@@ -49,11 +66,12 @@
         listPokemonByDefault();
     })
 
-    function listPokemonByType(selectedType){
+
+
+    function listPokemonByType(selectedType, limit){
         console.log(selectedType);
         $.get("http://pokeapi.co/api/v2/type/" + selectedType, function (data, status) {
-            var regxPattern = /\/\d+\//; //    /\/[0-9*]\//
-            var limit = 20;
+            var regxPattern = /\/\d+\//;
             if (data.pokemon.length < 20) {limit = data.pokemon.length;}
             for (var i = 0; i < limit; i++){
 
@@ -84,8 +102,8 @@
         })
     }
 
-    function listPokemonByDefault() {
-        $.get("http://pokeapi.co/api/v2/pokemon/?limit=20", function (data, status) {
+    function listPokemonByDefault(limit) {
+        $.get("http://pokeapi.co/api/v2/pokemon/?limit=" + limit, function (data, status) {
 
             for (pokeId in data.results){
 
@@ -108,12 +126,15 @@
     }
 
     function queryByPokeType() {
+
+        var numberOfPokemons = document.getElementById("pokeNum").value;
+
         var  selectedType = document.getElementById("typeSelect").value;
         $("#tableBody").empty();
 
-        if(selectedType != 0) listPokemonByType(selectedType);
+        if(selectedType != 0) listPokemonByType(selectedType, numberOfPokemons);
 
-        else listPokemonByDefault();
+        else listPokemonByDefault(numberOfPokemons);
 
 
     }
